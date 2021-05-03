@@ -8,7 +8,7 @@ CREATE TABLE users(
 );
 CREATE TABLE books(
 	id serial PRIMARY KEY,
-	user_id INTEGER REFERENCES users(id),
+	user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
 	name VARCHAR(80),
 	pages NUMERIC(500),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
