@@ -1,0 +1,16 @@
+CREATE TABLE users(
+	id serial PRIMARY KEY,
+	username VARCHAR(50) UNIQUE NOT NULL,
+	firstname VARCHAR(50) NOT NULL,
+	lastname VARCHAR(100) NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP DEFAULT NOW()
+);
+CREATE TABLE books(
+	id serial PRIMARY KEY,
+	user_id INTEGER REFERENCES users(id),
+	name VARCHAR(80),
+	pages NUMERIC(500),
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP DEFAULT NOW()
+);
