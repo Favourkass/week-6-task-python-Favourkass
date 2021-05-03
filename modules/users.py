@@ -1,23 +1,40 @@
 import psycopg2
 import time
 
-current_time = time.ctime()
 
 
 class Users:
-    create_conn = psycopg2.connect(host = 'localhost', database = 'books', user = 'postgres', password = '12345')
+    # def __init__(self):
+       
 
-    cursor = create_conn.cursor()
+        
+    def create_database(self):
+        self.conn = psycopg2.connect(host = 'localhost', dbname = None, user = 'postgres', password = '12345') 
+        self.cursor = self.conn.cursor() 
+        self.conn.autocommit = True
+        self.cursor.execute('DROP DATABASE IF EXISTS books_users_db')
+        self.cursor.execute('CREATE DATABASE books_users_db')
+        
+        
 
 
-    @staticmethod
-    def insert_into_users_table(username, first_name, last_name, created_at):
-        Users.cursor.execute("INSERT INTO users" "(username, firstname, lastname, created_at)" "VALUES(%s,%s,%s,%s)", (username,first_name, last_name, created_at))
 
-        Users.create_conn.commit()
-        Users.cursor.close()
-        Users.create_conn.close()
+    def create_connection(self):
+        self.create_database()
+        self.conn = psycopg2.connect(host = 'localhost', dbname ='books_users_db' , user = 'postgres', password = '12345')
+
+        self.cursor = self.conn.cursor()
+        self.conn.autocommit = True
+    
+    def create_table(self):
+        self.create_connection()
+        with open('sql_files/schema.sql', 'r') as schema_file:
+            schema_values = schema_file.read()
+            self.cursor.execute(schema_values)
+            self.conn.commit()
 
 
-new= Users()
-new.insert_into_users_table('kassidy', 'Favour', 'Nnabue', current_time)
+
+
+values = Users()
+values.create_table()
