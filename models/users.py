@@ -5,13 +5,14 @@ import time
 
 class Users:
     def __init__(self):
+        try:
+            self.conn = psycopg2.connect(host = 'localhost', dbname = 'books_users_db' , user = 'postgres', password = '12345')
+            self.cursor = self.conn.cursor() 
+            # self.cursor.execute('CREATE DATABASE books_users_db')
         
-        self.conn = psycopg2.connect(host = 'localhost', dbname = 'books_users_db' , user = 'postgres', password = '12345')
-        self.cursor = self.conn.cursor() 
-        # self.cursor.execute('CREATE DATABASE books_users_db')
-       
-        self.conn.autocommit = True
-        
+            self.conn.autocommit = True
+        except(Exception) as error:
+            print("Error while connecting to Postgresql", error)
        
 
         
@@ -59,7 +60,7 @@ class Users:
         return self.cursor.fetchall()
 
     def update_record_of_user(self, username, firstname, lastname, id):
-        self.cursor.execute(f'UPDATE users SET username = %s, firstname = %s, lastname = %s WHERE id = {id}', (username,firstname,lastname))
+        self.cursor.execute(f'UPDATE users SET username = %s, firstname = %s, lastname = %s, updated_at = now() WHERE id = {id}', (username,firstname,lastname))
         self.conn.commit()
     def destroy(self, id):
         self.cursor.execute(f'DELETE FROM users WHERE id = {id}')
@@ -72,4 +73,4 @@ class Users:
 
 values = Users()
 
-print(values.populate_table())
+print(values.get_all_users())

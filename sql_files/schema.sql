@@ -4,7 +4,7 @@ CREATE TABLE users(
 	firstname VARCHAR(50) NOT NULL,
 	lastname VARCHAR(100) NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-	updated_at TIMESTAMP DEFAULT NOW()
+	updated_at TIMESTAMP 
 );
 CREATE TABLE books(
 	id serial PRIMARY KEY,
@@ -12,5 +12,5 @@ CREATE TABLE books(
 	name VARCHAR(80),
 	pages NUMERIC(500),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-	updated_at TIMESTAMP DEFAULT NOW()
+	updated_at TIMESTAMP 
 );

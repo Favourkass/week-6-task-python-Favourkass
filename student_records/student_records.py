@@ -53,7 +53,7 @@ class StudentRecord:
 
 
 value = StudentRecord()
-print(value.delete_record('145-53-1634'))
+print(value.scored_above_50())
 print(value.read_all())
 # print(value.update_record( '60', '78', '86','64', '80', 'A', '345-67-8901'))
 # print(value.add_student('Long', 'nicholas', '145-53-1634', '40', '50','60', '65','67', 'A' ))
