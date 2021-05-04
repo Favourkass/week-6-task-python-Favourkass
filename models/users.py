@@ -4,9 +4,9 @@ import time
 
 
 class Users:
-    def __init__(self):
+    def __init__(self, dbname):
         try:
-            self.conn = psycopg2.connect(host = 'localhost', dbname = 'books_users_db' , user = 'postgres', password = '12345')
+            self.conn = psycopg2.connect(host = 'localhost', dbname = dbname , user = 'postgres', password = '12345')
             self.cursor = self.conn.cursor() 
             # self.cursor.execute('CREATE DATABASE books_users_db')
         
@@ -19,8 +19,8 @@ class Users:
        
         
     # def create_connection(self):
-    #     self.cursor.execute('CREATE DATABASE books_users_db')
-    #     self.conn = psycopg2.connect(host = 'localhost', dbname ='books_users_db' , user = 'postgres', password = '12345')
+    #     self.cursor.execute('CREATE DATABASE test_database_db')
+    #     self.conn = psycopg2.connect(host = 'localhost', dbname = 'test_database_db' , user = 'postgres', password = '12345')
     #     self.cursor = self.conn.cursor() 
         
        
@@ -38,7 +38,6 @@ class Users:
 
 
     def populate_table(self):
-       
         with open('sql_files/seeder.sql', 'r') as seeder_file:
             seeder_values = seeder_file.read()
             self.cursor.execute(seeder_values)
@@ -71,6 +70,6 @@ class Users:
 
 
 
-values = Users()
+values = Users('books_users_db')
 
-print(values.get_all_users())
+print(values.get_user(2))
