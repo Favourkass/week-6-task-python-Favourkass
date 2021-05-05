@@ -1,4 +1,4 @@
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
 	id serial PRIMARY KEY,
 	username VARCHAR(50) UNIQUE NOT NULL,
 	firstname VARCHAR(50) NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE users(
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP 
 );
-CREATE TABLE books(
+CREATE TABLE IF NOT EXISTS books(
 	id serial PRIMARY KEY,
 	user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
 	name VARCHAR(80),
