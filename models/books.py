@@ -32,5 +32,3 @@ class Books:
         self.cursor.execute(f'DELETE FROM books WHERE id = {id}')
         self.conn.commit()
 
-values = Books('books_users_db')
-print(values.create_book(1, 'Lord of The Rings', 400))
